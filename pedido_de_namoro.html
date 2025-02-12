@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido de Namoro</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Estilos personalizados para a página de pedido de namoro */
+    body {
+      font-family: 'Dancing Script', cursive, Arial, sans-serif;
+      background: linear-gradient(to bottom right, #fbc7d4, #ff9a9e); 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden; /* Garante que os efeitos de confete não saiam da tela */
+    }
+
+    .message-container {
+      text-align: center;
+      margin-bottom: 40px; 
+      z-index: 10;
+    }
+
+    .message {
+      font-size: 50px;
+      color: white;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .balloon {
+      font-size: 50px;
+      color: #ff4c97;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animação subindo e descendo na tela */
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    button {
+      font-size: 24px;
+      padding: 20px;
+      background-color: #ff4c97;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 0.1px;
+      position: absolute; /* Permite que o botão se mova livremente pela tela */
+      z-index: 5;
+    }
+
+    button:hover {
+      background-color: #ff3377;
+    }
+
+    /* Garantir que o botão "Sim, aceito!" fique centralizado */
+    #acceptBtn {
+      top: 60%; 
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Dancing Script', cursive; 
+    }
+
+    /* Estilo do botão de "Não, claro que não!" */
+    #declineBtn {
+      top: 70%; 
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Dancing Script', cursive; 
+    }
+
+    /* Efeito romântico */
+    .romantic-effect {
+      display: none;
+      position: fixed; /* Posiciona fixo na tela */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Centraliza o conteúdo */
+      color: #ff4c97;
+      font-size: 3em;
+      text-align: center;
+      z-index: 20; /* Coloca o efeito romântico acima de outros conteúdos */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="message-container">
+    <div class="message">
+      <div>Ana Carolina...</div>
+    </div>
+    <div class="balloon">
+      Você aceita namorar comigo?
+    </div>
+  </div>
+
+  <button id="acceptBtn" onclick="acceptProposal()">Sim, aceito!❤️</button>
+  <button id="declineBtn" onclick="declineProposal()">Não quero!!!😡</button>
+
+  <!-- Efeito romântico -->
+  <div id="romanticEffect" class="romantic-effect">
+    <h1>Eu te amo pra sempre, meu amor! ❤️</h1>
+    <p>Seremos muito felizes juntos, e a partir de agora, somos um só, sua dor é a minha, sua felicidade é a minha, e será assim pra sempre!</p>
+  </div>
+
+  <!-- Adicionando a CDN do canvas-confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <script>
+    function acceptProposal() {
+      // Oculta o conteúdo da página de pedido de namoro
+      document.querySelector(".message-container").style.display = "none";
+      document.getElementById("acceptBtn").style.display = "none";
+      document.getElementById("declineBtn").style.display = "none";
+
+      // Exibe o efeito romântico imediatamente
+      const romanticEffect = document.getElementById("romanticEffect");
+      romanticEffect.style.display = "block";  // Torna o efeito romântico visível
+
+      // Gerar confetes imediatamente ao clicar no botão
+      confetti({
+        particleCount: 200, // Quantidade de partículas
+        angle: 90, // Direção da dispersão
+        spread: 90, // Abertura dos confetes
+        origin: { x: 0.5, y: 0.5 }, // Posição central de origem
+        colors: ['#ff007f', '#ff00b3', '#ff6f00', '#ffbf00', '#ff00ff'], // Cores dos confetes
+        shapes: ['circle', 'square'], // Formas dos confetes
+        gravity: 0.5, // Efeito de gravidade para cair lentamente
+      });
+
+      // Agora o conteúdo romântico está centralizado desde o começo
+    }
+
+    function declineProposal() {
+      // Movimenta o botão para uma posição aleatória da tela
+      const button = document.getElementById("declineBtn");
+      const maxX = window.innerWidth - button.offsetWidth; 
+      const maxY = window.innerHeight - button.offsetHeight; 
+      
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      button.style.left = randomX + "px";
+      button.style.top = randomY + "px";
+    }
+  </script>
+</body>
+</html>
